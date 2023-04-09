@@ -1,0 +1,156 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/aside") %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <%- include('template/breadcrumb', {module: 'Formulario: Búsqueda de Alumnos'}) %>
+
+  <div class="container-fluid">
+    <div class="row mb-2 justify-content-center">
+      <div class="col-md-8 bg-dark rounded p-2">
+        <form id="search-form" class="form-inline ml-auto" role="search">
+          <div class="input-group w-100">
+            <input class="form-control form-control-lg rounded-0" id="search-input" type="search" placeholder="Buscar por código, DNI, nombre, apellidos, móvil o fecha de nacimiento" aria-label="Búsqueda"  onfocus="cleanInput()">
+            <div class="input-group-append">
+              <button class="btn btn-outline-light btn-lg rounded-0" type="submit">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table id="tableAlumns" class="table table-bordered table-striped text-center mt-4" style="display:none;">
+        <thead>
+          <tr class="bg-dark text-white">
+            <th scope="col">#</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido 1</th>
+            <th scope="col">Apellido 2</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Permiso</th>                
+            <th scope="col">Domicilio</th>
+            <th scope="col">Fecha Nac.</th>
+            <th scope="col">Edad</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>     
+<script>
+$(document).ready(function() {
+  var table;
+
+  $('#search-form').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+      url: '/index',
+      type: 'POST',
+      data: { search: $('#search-input').val() },
+      success: function(response) {
+        var results = response.results;
+        var tableData = [];
+
+        //console.log('Resultados obtenidos:', results);
+
+        if (results) {
+          results.forEach(function(result) {
+            var rowData = {
+              "COD_CLI": result.COD_CLI,
+              "DNI": result.DNI,
+              "NO_CLI": result.NOMBRE,
+              "AP1_CLI": result.APELL1,
+              "AP2_CLI": result.APELL2,
+              "TEL_CLI": result.TEL_CLI,
+              "PERMISO": result.PERMISO,
+              "DIRCOMPLET": result.DIRCOMPLET,
+              "FechBuscada": result.FechBuscada,
+              "EDAD": result.EDAD
+            };
+
+            tableData.push(rowData);
+          });
+        }
+
+        if (table) {
+          // Si la tabla ya está inicializada, actualizar los datos
+          table.clear().rows.add(tableData).draw();
+        } else {
+          // Si la tabla no se ha inicializado, inicializarla
+          table = $('#tableAlumns').DataTable({
+            // Configuración de la propiedad "oLanguage"
+            oLanguage: {
+              oPaginate: {
+                sFirst: "Primero",
+                sLast: "Ultimo",
+                sNext: "Siguiente",
+                sPrevious: "Anterior"
+              },
+              sLengthMenu: "Mostrando _MENU_ entradas por página",
+              sProcessing: "Cargando...",
+              sSearch: "Buscar en los resultados:",
+              sSearchPlaceholder: "",
+              sZeroRecords: "No se encontraron registros coincidentes con el texto buscado",
+              sInfoFiltered: "(filtrados de un total de _MAX_)",
+              sInfoEmpty: "Mostrando 0 a 0 de 0 registros coincidentes",
+              sInfo: "Mostrando _START_ a _END_ de _TOTAL_ registros coincidentes",
+              sEmptyTable: "No hay registros que coincidan con el texto buscado",
+              sLoadingRecords: "Cargando...",
+              oAria: {
+                sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sSortDescending: ": Activar para ordenar la columna de manera descendente"
+              }
+            },
+            data: tableData,
+            columns: [
+              { data: 'COD_CLI' },
+              { data: 'DNI' },
+              { data: 'NO_CLI' },
+              { data: 'AP1_CLI' },
+              { data: 'AP2_CLI' },
+              { data: 'TEL_CLI' },
+              { data: 'PERMISO' },
+              { data: 'DIRCOMPLET' },
+              { data: 'FechBuscada' },
+              { data: 'EDAD' },
+            ],
+            order: [[0, 'des']],   
+              // Nuevas propiedades agregadas
+              "info": true,
+              "autoWidth": false,
+              "responsive": true,
+              "paging": true,
+              "lengthChange": true,
+              "searching": true,
+              "ordering": true,
+              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+          });
+          // Mover los botones de exportación a la parte superior de la tabla
+          table.buttons().container().appendTo('#tableAlumns_wrapper .col-md-6:eq(0)');
+
+        }
+
+        //console.log('Tabla generada:', table);
+        // Mostrar la tabla después de que se hayan agregado los datos
+        $('#tableAlumns').show().DataTable().columns.adjust().draw();
+      }
+
+    });
+  });
+});
+
+function cleanInput(){
+    document.getElementById("search-input").value = "";
+}
+</script>
+<%- include("template/footer") %>

@@ -1,0 +1,513 @@
+<%- include("template/header") %>
+<%- include("template/navbar") %>
+<%- include("template/aside") %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <%- include('template/breadcrumb', {module: 'Alumno: ' + alumno.NO_CLI + ' ' + alumno.AP1_CLI + ' ' + alumno.AP2_CLI}) %>
+  <!-- Content Header (Page header) -->        
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-6 mx-auto col-12">
+                    <div class="card">
+                        <div class="card-header"><h4>Datos del Alumno</h4></div>
+                        <div class="card-body pt-3">
+                            <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-personal" aria-selected="true" role="tab">Personales</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-permisos" aria-selected="false" tabindex="-1" role="tab">Permiso</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-tarifa" aria-selected="false" tabindex="-1" role="tab">Tarifa</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-domicilio" aria-selected="false" tabindex="-1" role="tab">Domicilio</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-otrosdatos" aria-selected="false" tabindex="-1" role="tab">Otros datos</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-foto" aria-selected="false" tabindex="-1" role="tab">Foto</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-3">
+                                <div class="tab-pane fade show active profile-personal" id="profile-personal" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label ">Código Cliente</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.COD_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">DNI</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.D_N_I_ %><%=alumno.LETRANIF %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Nombre</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.NO_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Primer Apellido</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.AP1_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Segundo Apellido</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.AP2_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Fecha de Nacimiento</div>
+                                        <div class="col-lg-8 col-md-8"><b><%= new Date(alumno.NAT_CLI).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) %></b></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Teléfono</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.TEL_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Email</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.EMAIL && alumno.EMAIL !== "NULL") { %><%=alumno.EMAIL.toLowerCase() %><% } %></b></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-permisos pt-3" id="profile-permisos" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Fecha Matrícula</div>
+                                        <div class="col-lg-8 col-md-8"><b><%= new Date(alumno.FECHA_MATRI).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'}) %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Permiso que solicita</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.PERM_SOLIC %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Permiso que posee</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.PERM_TIENE && alumno.PERM_TIENE !== "NULL") { %><%=alumno.PERM_TIENE %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Num. Cento Médico</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.CEN_MED && alumno.CEN_MED !== "NULL") { %><%=alumno.CEN_MED %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Num. de Escuela</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.ESCUELA %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Num. de Sección</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.SECCION %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Dígito de control</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.DIG_CON %></b></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-tarifa pt-3" id="profile-tarifa" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Matrícula</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.P_MATR && alumno.P_MATR !== "NULL") { %><%=alumno.P_MATR.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Teórica</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.P_TEOR && alumno.P_TEOR !== "NULL") { %><%=alumno.P_TEOR.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Tasa</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.P_TASA && alumno.P_TASA !== "NULL") { %><%=alumno.P_TASA.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <% if (alumno.PRPIST && alumno.PRPIST !== "NULL" && alumno.PRPIST !== '0.00') { %>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Prácticas pista</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.PRPIST && alumno.PRPIST !== "NULL" && alumno.PRPIST !== '0.00') { %><%=alumno.PRPIST.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <% } %>
+                                    <% if (alumno.EXPIST && alumno.EXPIST !== "NULL" && alumno.EXPIST !== '0.00') { %>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Exámen pista</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.EXPIST && alumno.EXPIST !== "NULL" && alumno.EXPIST !== '0.00') { %><%=alumno.EXPIST.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <% } %>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Prácticas de circulación</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.PRCIRC && alumno.PRCIRC !== "NULL") { %><%=alumno.PRCIRC.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Exámen de circulación</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.EXCIRC && alumno.EXCIRC !== "NULL") { %><%=alumno.EXCIRC.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Renovación</div>
+                                        <div class="col-lg-8 col-md-8"><b><% if (alumno.RENOVA && alumno.RENOVA !== "NULL") { %><%=alumno.RENOVA.toString().replace(".", ",") + '€' %><% } %></b></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-domicilio pt-3" id="profile-domicilio" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label ">Dirección Domicilio</div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <b><% if (alumno.TIPOVIA && alumno.TIPOVIA !== "NULL") { %><%=alumno.TIPOVIA.charAt(0).toUpperCase() + alumno.TIPOVIA.slice(1).toLowerCase() %><% } %>
+                                            <% if (alumno.DIR_CLI && alumno.DIR_CLI !== "NULL") { %><%= ' ' %><%=alumno.DIR_CLI %><% } %>
+                                            <% if (alumno.NUM && alumno.NUM !== "NULL") { %><%= ' ' %><%=alumno.NUM %><% } %>
+                                            <% if (alumno.KM && alumno.KM !== "NULL") { %><%= ', KM. ' %><%=alumno.KM %><% } %>
+                                            <% if (alumno.HM && alumno.HM !== "NULL") { %><%= ', HM. ' %><%=alumno.HM %><% } %>
+                                            <% if (alumno.BLOQUE && alumno.BLOQUE !== "NULL") { %><%= ', Bloque ' %><%=alumno.BLOQUE %><% } %>
+                                            <% if (alumno.PORTAL && alumno.PORTAL !== "NULL") { %><%= ', Portal ' %><%=alumno.PORTAL %><% } %>
+                                            <% if (alumno.ESCAL && alumno.ESCAL !== "NULL") { %><%= ', Esc. ' %><%=alumno.ESCAL %><% } %>
+                                            <% if (alumno.PISO && alumno.PISO !== "NULL") { %><%= ', Piso ' %><%=alumno.PISO %><% } %>
+                                            <% if (alumno.LETRA && alumno.LETRA !== "NULL") { %><%= ', Puerta ', %><%=alumno.LETRA %><% } %></b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Código Postal</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.CP_CLI %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Provincia</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.PRO_CLI.charAt(0).toUpperCase() + alumno.PRO_CLI.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Municipio</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.MUNICIPIO.charAt(0).toUpperCase() + alumno.MUNICIPIO.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Población</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.POB_CLI.charAt(0).toUpperCase() + alumno.POB_CLI.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-otrosdatos pt-3" id="profile-otrosdatos" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label ">Sexo</div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <b><% if (alumno.SEXO && alumno.SEXO === "V") { %>
+                                                Varón
+                                              <% } else if (alumno.SEXO && alumno.SEXO === "M") { %>
+                                                Mujer
+                                            <% } %></b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Pais de Nacimiento</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.LUG_NAT.charAt(0).toUpperCase() + alumno.LUG_NAT.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Nacionalidad</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.NACION.charAt(0).toUpperCase() + alumno.NACION.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Nivel de estudios</div>
+                                        <div class="col-lg-8 col-md-8"><b><%=alumno.NIV_EST.charAt(0).toUpperCase() + alumno.NIV_EST.slice(1).toLowerCase() %></b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 label">Otras anotaciones</div>
+                                        <div class="col-lg-8 col-md-8"><p class="small fst-italic"><b><%=alumno.NOT_CLI %></b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-foto pt-3" id="profile-foto" role="tabpanel">
+                                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center"> 
+                                        <% if (alumno.SEXO === "M") { %>
+                                            <img src="../uploads/1655409421032.png" alt="Profile" class="rounded-circle">
+                                        <% } else { %>
+                                            <img src="../uploads/1655409627991.png" alt="Profile" class="rounded-circle">
+                                        <% } %>
+                                        <h5><%=alumno.NO_CLI %><%= ' ' %><%=alumno.AP1_CLI %><%= ' ' %><%=alumno.AP2_CLI %></h5>
+                                        <h6>Alumn@</h6>
+                                        <div class="social-links mt-2"> 
+                                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a> 
+                                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a> 
+                                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a> 
+                                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer pt-3">
+                            <table style="width: 100%;">
+                              <tbody>
+                                <tr style="vertical-align:top">
+                                    <td style="border: medium solid; border-radius: 5px; padding: 5px;" class="text-center align-middle">
+                                        <a href="/asientoAlumn/<%=alumno.COD_CLI %>" class="btn btn-outline-primary" title="Asientos">Alta registro de asientos</a>
+                                    </td>
+                                    <td style="border: medium solid; border-radius: 5px; padding: 5px;" class="text-center align-middle">
+                                        <a href="/facturAlumn/<%=alumno.COD_CLI %>" class="btn btn-outline-primary" title="Factura">Alta factura nueva</a>
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
+                          
+                    </div>
+                </div>
+                <div class="col-xl-6 mx-auto col-12">
+                    <div class="card">
+                        <div class="card-header"><h4>Datos contables</h4></div>
+                        <div class="card-body pt-3">
+                            <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-cargos" aria-selected="true" role="tab">Cargos</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-abonos" aria-selected="false" tabindex="-1" role="tab">Abonos</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-practicas" aria-selected="false" tabindex="-1" role="tab">Prácticas</button>
+                                </li>
+                                <li class="nav-item" role="presentation"> 
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-ficha" aria-selected="false" tabindex="-1" role="tab">Cuenta global</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-3">
+                                <div class="tab-pane fade show active profile-cargos" id="profile-cargos" role="tabpanel">
+                                    <div id="-responsive">
+                                        <div id="spreadsheet1"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-abonos pt-3" id="profile-abonos" role="tabpanel">
+                                    <div id="container-responsive">
+                                        <div id="spreadsheet2"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-practicas pt-3" id="profile-practicas" role="tabpanel">
+                                    <div id="container-responsive">
+                                        <div id="spreadsheet3"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade profile-ficha pt-3" id="profile-ficha" role="tabpanel">
+                                    <div id="container-responsive">
+                                        <div id="spreadsheet4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+  <!-- /.content -->
+
+</div>
+<script>
+    var data1 = JSON.parse('<%- JSON.stringify(data1) %>');  
+    var SUMCOL = function(instance, columnId) {
+      var total = 0;
+      for (var j = 0; j < instance.options.data.length; j++) {
+        var value = parseFloat(instance.records[j][columnId].innerHTML.replace(',', '.'));
+        if (!isNaN(value)) {
+          total += value;
+        }
+      }
+      if (columnId == 2) {
+        return total.toFixed(1).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      } else if (columnId == 3) {
+        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+      }
+    }
+    var table1 = jspreadsheet(document.getElementById('spreadsheet1'), {
+        data: data1,
+        columns: [
+            { type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+            { type: 'date', title: 'Fecha', width: 100, readOnly: true },
+            { type: 'numeric', title: 'Cantidad', width: 70, readOnly: true, mask: '#.##0,0', decimal: ',', thousands: '.', defaultValue: 0 },
+            { type: 'currency', title: 'Precio', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' }
+        ],
+        updateTable:function(instance, cell){
+            cell.style.fontWeight = 'bold';
+            cell.style.color = '#333333';
+        },
+        columnDrag:true,
+        footers: [['','Total','=SUMCOL(TABLE(), 2)','=SUMCOL(TABLE(), 3)']],
+        tableWidth: '1000px',
+        tableHeight: '400px',
+        freezeColumns: 1, // establece la cantidad de columnas congeladas
+        freezeRows: 1 // establece la cantidad de filas congeladas
+    });
+    //console.log('Data1->Resultados obtenidos de todos los cargos:', JSON.parse('<%- JSON.stringify(data1) %>'));
+</script>
+<script>
+    var data2 = JSON.parse('<%- JSON.stringify(data2) %>'); 
+    if (data2 === null || data2.length === 0) {
+    // Si data2 es nulo o está vacío, muestra un mensaje o una tabla vacía
+    var emptyData = [
+        ['', '', '', ''],
+        ['', '', '', '']
+    ];
+    let table2 = jspreadsheet(document.getElementById('spreadsheet2'), {
+        data: emptyData,
+        columns: [
+        { type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+        { type: 'date', title: 'Fecha', width: 100, readOnly: true },
+        { type: 'numeric', title: 'Cantidad', width: 70, readOnly: true, mask: '#.##0,0', decimal: ',', thousands: '.', defaultValue: 0 },
+        { type: 'currency', title: 'Precio', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' }
+        ],
+        tableWidth: '1000px',
+        tableHeight: '400px',
+    });
+    } else {
+        // Si data2 tiene datos, inicializa la tabla con esos datos 
+        var SUMCOL = function(instance, columnId) {
+        var total = 0;
+        for (var j = 0; j < instance.options.data.length; j++) {
+            var value = parseFloat(instance.records[j][columnId].innerHTML.replace(',', '.'));
+            if (!isNaN(value)) {
+            total += value;
+            }
+        }
+        if (columnId == 2) {
+            return total.toFixed(1).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        } else if (columnId == 3) {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+        }
+        }
+        var table2 = jspreadsheet(document.getElementById('spreadsheet2'), {
+            data: data2,
+            columns: [
+                { type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+                { type: 'date', title: 'Fecha', width: 100, readOnly: true },
+                { type: 'numeric', title: 'Cantidad', width: 70, readOnly: true, mask: '#.##0,0', decimal: ',', thousands: '.', defaultValue: 0 },
+                { type: 'currency', title: 'Precio', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' }
+            ],
+            updateTable:function(instance, cell){
+                cell.style.fontWeight = 'bold';
+                cell.style.color = '#333333';
+            },
+            columnDrag:true,
+            footers: [['','Total','=SUMCOL(TABLE(), 2)','=SUMCOL(TABLE(), 3)']],
+            tableWidth: '1000px',
+            tableHeight: '400px',
+            freezeColumns: 1, // establece la cantidad de columnas congeladas
+            freezeRows: 1 // establece la cantidad de filas congeladas
+        });
+        //console.log('data2->Resultados obtenidos de todos los cargos:', JSON.parse('<%- JSON.stringify(data2) %>'));
+    }
+</script>
+<script>
+var data3 = JSON.parse('<%- JSON.stringify(data3) %>');
+if (data3 === null || data3.length === 0) {
+  // Si data3 es nulo o está vacío, muestra un mensaje o una tabla vacía
+  var emptyData = [
+    ['', '', '', ''],
+    ['', '', '', '']
+  ];
+  let table3 = jspreadsheet(document.getElementById('spreadsheet3'), {
+    data: emptyData,
+    columns: [
+      { type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+      { type: 'date', title: 'Fecha', width: 100, readOnly: true },
+      { type: 'numeric', title: 'Cantidad', width: 70, readOnly: true, mask: '#.##0,0', decimal: ',', thousands: '.', defaultValue: 0 },
+      { type: 'currency', title: 'Precio', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' }
+    ],
+    tableWidth: '1000px',
+    tableHeight: '400px',
+  });
+} else {
+  // Si data3 tiene datos, inicializa la tabla con esos datos
+    var SUMCOL = function(instance, columnId) {
+    var total = 0;
+    for (var j = 0; j < instance.options.data.length; j++) {
+        var value = parseFloat(instance.records[j][columnId].innerHTML.replace(',', '.'));
+        if (!isNaN(value)) {
+        total += value;
+        }
+    }
+    if (columnId == 2) {
+        return total.toFixed(1).toString().replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    } else if (columnId == 3) {
+        return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+    }
+    }
+    let table3 = jspreadsheet(document.getElementById('spreadsheet3'), {
+        data: data3,
+        columns: [
+            { type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+            { type: 'date', title: 'Fecha', width: 100, readOnly: true },
+            { type: 'numeric', title: 'Cantidad', width: 70, readOnly: true, mask: '#.##0,0', decimal: ',', thousands: '.', defaultValue: 0 },
+            { type: 'currency', title: 'Precio', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' }
+        ],
+        updateTable:function(instance, cell){
+            cell.style.fontWeight = 'bold';
+            cell.style.color = '#333333';
+        },
+        columnDrag:true,
+        footers: [['','Total','=SUMCOL(TABLE(), 2)','=SUMCOL(TABLE(), 3)']],
+        tableWidth: '1000px',
+        tableHeight: '400px',
+        freezeColumns: 1, // establece la cantidad de columnas congeladas
+        freezeRows: 1 // establece la cantidad de filas congeladas
+    });
+    //console.log('Data3->Resultados obtenidos solo de prácticas:', JSON.parse('<%- JSON.stringify(data3) %>'));
+}
+</script>
+<script>
+    var dataCargos = JSON.parse('<%- JSON.stringify(dataCargos) %>');
+    var dataPagos = JSON.parse('<%- JSON.stringify(dataPagos) %>');
+    var sImpEuro = JSON.parse('<%- JSON.stringify(sumaImportesFormateada) %>');
+    var data = dataCargos.concat(dataPagos); // Combinar los datos de data5 y data4  
+    var SUMCOL = function(instance, columnId) {
+      var total = 0;
+      //var sum2 = 0;
+      //var sum3 = 0;
+      for (var j = 0; j < instance.options.data.length; j++) {
+        var value = parseFloat(instance.records[j][columnId].innerHTML.replace(',', '.'));
+        if (!isNaN(value)) {
+          total += value;
+          //if (columnId == 2) {
+                //sum2 += value;
+          //} else if (columnId == 3) {
+                //sum3 += value;
+          //}
+        }
+      }
+      //var saldo = sum2 - sum3;
+      if (columnId == 2) {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+        } else if (columnId == 3) {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(total.toFixed(2));
+        //} else {
+            //return saldo = sum2 - sum3;
+            //return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(saldo.toFixed(2));
+        }
+    };
+    //var sum2 = SUMCOL(myInstance, 2);
+    //var sum3 = SUMCOL(myInstance, 3);
+    //var saldo = SUMCOL(myInstance, 4);
+    //console.log("Sum2:", sum2, "Sum3:", sum3, "Saldo:", saldo);
+
+    var table4 = jspreadsheet(document.getElementById('spreadsheet4'), {
+        data: data,
+        columns: [
+            { data: 'Fecha', type: 'date', title: 'Fecha', width: 100, readOnly: true, format: 'DD/MM/YYYY' },
+            { data: 'Descripcion', type: 'text', title: 'Descripción', width: 200, readOnly: true, align: 'left' },
+            { data: 'Importe1', type: 'currency', title: 'Pagos', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right' },
+            { data: 'Importe2', type: 'currency', title: 'Cargos', width: 80, readOnly: true, mask: '#.##0,00 €', decimal: ',', thousands: '.', defaultValue: 0, align: 'right'  }
+        ],
+        updateTable:function(instance, cell){
+            cell.style.fontWeight = 'bold';
+            cell.style.color = '#333333';
+        },
+        columnDrag:true,
+        footers: [['','Suma de Pagos y Cargos','=SUMCOL(TABLE(), 2)','=SUMCOL(TABLE(), 3)'],
+            ['','Saldo pendiente','',sImpEuro]
+        ],
+        tableWidth: '1000px',
+        tableHeight: '400px',
+        freezeColumns: 1, // establece la cantidad de columnas congeladas
+        freezeRows: 1 // establece la cantidad de filas congeladas
+    });
+    var sum2 = parseFloat(SUMCOL(TABLE(), 2).replace(',', '.'));
+    var sum3 = parseFloat(SUMCOL(TABLE(), 3).replace(',', '.'));
+    var saldo = sum2 - sum3;
+    //console.log("Sum2:", sum2, "Sum3:", sum3, "Saldo:", sImpEuro);
+    //console.log('Resultados de saldoPendiente:', saldo);
+    //table4.updateFooters();
+</script>
+
+<style>
+    .jexcel tbody tr:nth-child(even) {
+      background-color: #EEE9F1 !important;
+    }
+    .container-responsive {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    }
+
+</style>    
+<%- include("template/footer") %>         
